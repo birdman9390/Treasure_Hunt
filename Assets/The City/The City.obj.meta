@@ -14,6 +14,9 @@ ModelImporter:
     2100000: default_bldgs2
     2100002: default
     2100004: default_sidewalks
+    2100006: bldgs2Mat
+    2100008: defaultMat
+    2100010: mesh01Mat
     2300000: bldgs2
     2300002: default
     2300004: mesh01

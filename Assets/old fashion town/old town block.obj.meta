@@ -25,6 +25,8 @@ ModelImporter:
     2100026: default_wall_side_mult
     2100028: default_light_mult
     2100030: default_lamp_mult
+    2100032: defaultMat
+    2100034: mesh01Mat
     2300000: default
     2300002: mesh01
     3300000: default
