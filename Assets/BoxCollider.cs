@@ -1,35 +1,44 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BoxCollider : MonoBehaviour {
+
+    //Mask for collision detecting
     private bool foodDetected;
     private bool treasureDetected;
     private bool batteryDetected;
 
-    public static int numFood;
-    public static int numTreasure;
-    public static int numBattery;
 
+    //Collision Object with the player
     private GameObject gameObject;
-    // Use this for initialization
+    
+
+    //Initialize
     void Start () {
         foodDetected = false;
         treasureDetected = false;
         batteryDetected = false;
 
-        numFood = 0;
-        numTreasure = 0;
-        numBattery = 0;
     }
+
 	// Update is called once per frame
 	void Update () {
         if(foodDetected && Input.GetKey(KeyCode.G))
         {
             pickUp(gameObject);
         }
-		
-	}
+        else if (treasureDetected && Input.GetKey(KeyCode.G))
+        {
+            pickUp(gameObject);
+        }
+        else if (batteryDetected && Input.GetKey(KeyCode.G))
+        {
+            pickUp(gameObject);
+        }
+
+    }
     void OnCollisionEnter(Collision col)
     {
         switch(col.gameObject.tag)
@@ -68,13 +77,19 @@ public class BoxCollider : MonoBehaviour {
         switch (gameObject.tag)
         {
             case "Food":
-                numFood++;
+                GameManager.remainHP = Math.Min(GameManager.remainHP + GameManager.RecoverByFood, GameManager.MAX_HP);
+                foodDetected = false;
+                GameManager.remainFood--;
                 break;
             case "Treasure":
-                numTreasure++;
+                GameManager.numTreasure++;
+                treasureDetected = false;
+                GameManager.remainTreasure--;
                 break;
             case "Battery":
-                numBattery++;
+                GameManager.numBattery++;
+                batteryDetected = false;
+                GameManager.remainBattery--;
                 break;
         }
         Destroy(gameObject);
